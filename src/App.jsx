@@ -1,23 +1,30 @@
-import { useState, createContext } from "react"; 
-import './App.css'
-import Component1 from './components/Component1';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 
+import MainLayout from "./layout/MainLayout";
 
-export const Context = createContext();
+
+import Home from "./pages/Home";
+import Contact from "./pages/Context";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-   <div className="App">
-      <h2>App</h2>
-      <Context.Provider value={{count,setCount}}>
-        <Component1  />
-      </Context.Provider>
-      
-   </div> 
-  )
+  const routes = createBrowserRouter([
+    {
+      path: "/",
+      element: <MainLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "/contact",
+          element: <Contact />,
+        },
+      ],
+    },
+  ]);
+  return <RouterProvider router={routes} />;
 }
 
-export default App
+export default App;
